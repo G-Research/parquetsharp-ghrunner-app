@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Transform YAML to JSON and echo to file
+      - name: Echo config to file
         run: echo "${{ vars.CONFIG }}" > ./config.yml
       
       - uses: actions/setup-node@v3
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Transform YAML to JSON and echo to file
+      - name: Echo config to file
         run: echo "${{ vars.CONFIG }}" > ./config.yml
       
       - uses: actions/setup-node@v3
