@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - parameterize-pulumi-version
   workflow_dispatch:
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Echo config to file
+      - name: Transform YAML to JSON and echo to file
         run: echo "${{ vars.CONFIG }}" > ./config.yml
       
       - uses: actions/setup-node@v3
@@ -35,15 +36,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Echo config to file
+      - name: Transform YAML to JSON and echo to file
         run: echo "${{ vars.CONFIG }}" > ./config.yml
       
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: npm
+      
       - name: Build docker image
         run: npm run build
+        env:
+          PULUMI_VERSION: ${{ vars.PULUMI_VERSION }}
 
       - uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
